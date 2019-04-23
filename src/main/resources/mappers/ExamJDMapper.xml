@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"      
+ "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+
+<mapper namespace="cn.tedu.demo.mapper.ExamJDMapper">
+
+	<!-- 查找所有题目 -->
+	<!-- List<ExamJD> listAll() -->
+	<select id="listAll" resultType="cn.tedu.demo.entity.ExamJD">
+		select
+			title,answer
+		from
+			exam
+	</select>
+	
+	
+	<!-- 通过阶段类型查找 -->
+	<!-- List<ExamJD> listByType(Integer type) -->
+	<select id="listByType" resultType="cn.tedu.demo.entity.ExamJD">
+		select
+			title,answer
+		from
+			exam
+		where
+			type=#{type}
+	</select>
+	
+	
+	
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

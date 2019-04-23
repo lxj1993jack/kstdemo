@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"      
+ "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+
+<mapper namespace="cn.tedu.demo.mapper.UserMapper">
+
+	<!-- 插入用户数据 -->
+	<!-- Integer insert(User user) -->
+	<insert id="insert" useGeneratedKeys="true" keyProperty="uid">
+		INSERT INTO user(
+			username,password,
+			salt
+		) VALUES(
+			#{username},#{password},
+			#{salt}
+		)
+	</insert>
+	
+	<!-- 根据用户名查询用户数据 -->
+	<!-- 	User findByUsername(String username); -->
+	<select id="findByUsername" resultType="cn.tedu.demo.entity.User">
+		SELECT
+			uid,username,
+			password,salt
+		FROM
+			user
+		WHERE
+			username=#{username}
+	</select>
+	
+	
+	
+	
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

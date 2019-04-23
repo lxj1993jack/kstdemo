@@ -1,0 +1,75 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<title>注册</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<script src="../jq/jquery-1.9.1.min.js"></script>
+<link rel="stylesheet" type="text/css" href="../css/style.css" />
+</head>
+<body>
+	<div id="wrap">
+		<div id="top_content">
+			<div id="header">
+				<div id="rightheader">
+					<p></p>
+				</div>
+				<div id="topheader">
+					<h1 id="title">
+						<a href="#">注册</a>
+					</h1>
+				</div>
+				<div id="navigation"></div>
+			</div>
+			<div id="content">
+				<p id="whereami"></p>
+				<h1>注册</h1>
+				<form id="form-reg" action="${app }/mstReg.do" method="post">
+					<table cellpadding="0" cellspacing="0" border="0"
+						class="form_table">
+						<tr>
+							<td valign="middle" align="right">用户名：</td>
+							<td valign="middle" align="left"><input type="text"
+								class="inputgri" name="username" />
+								<span id="msg" style="color: red;font-size: 20px"></span>
+								</td>
+						</tr>
+						<tr>
+							<td valign="middle" align="right">密码：</td>
+							<td valign="middle" align="left"><input type="password"
+								class="inputgri" name="password" /></td>
+						</tr>
+					</table>
+					<p>
+						<input id="btn-reg" type="button" class="button" value="提交" />
+						<input type="button" class="button" value="登录"
+						onclick="location='/web/login.html'" />
+					</p>
+				</form>
+			</div>
+		</div>
+		<div id="footer">
+			<div id="footer_bg"></div>
+		</div>
+	</div>
+	<script type="text/javascript">
+	$("#btn-reg").click(function(){
+		$.ajax({
+			//当前路径：/web/register.html
+			//目标路径：/users/reg
+			"url":"/users/reg",
+			"data":$("#form-reg").serialize(),
+			"type":"post",
+			"dataType":"json",
+			"success":function(json){
+				if(json.state==200){
+					alert("注册成功");
+					location.href="/index.html";
+				}else{
+					$("#msg").html(json.message);
+				}
+			}
+		});
+	});
+	</script>
+</body>
+</html>

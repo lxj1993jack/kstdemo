@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"      
+ "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+
+<mapper namespace="cn.tedu.demo.mapper.ExamXZMapper">
+
+	<!-- 查找所有选择题 -->
+	<!-- List<ExamXZ> listAll() -->
+	<select id="listAll" resultType="cn.tedu.demo.entity.ExamXZ">
+		SELECT
+			id,title,
+			a,b,c,d,
+			ansid,answer,
+			type,type1
+		FROM
+			exam_xz
+	</select>
+	
+	
+	<!-- 通过阶段类型查找 -->
+	<!-- List<ExamXZ> listByType(Integer type) -->
+	<select id="listByType" resultType="cn.tedu.demo.entity.ExamXZ">
+		SELECT
+			id,title,
+			a,b,c,d,
+			ansid,answer,
+			type,type1
+		FROM
+			exam_xz
+		WHERE
+			type=#{type}
+	</select>
+	
+	
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

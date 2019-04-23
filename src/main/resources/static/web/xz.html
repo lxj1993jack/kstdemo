@@ -1,0 +1,139 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<title>选择题</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<script src="../jq/jquery-1.9.1.min.js"></script>
+<link rel="stylesheet" type="text/css" href="../css/style.css" />
+</head>
+<body>
+	<div id="wrap">
+		<div id="top_content">
+			<div id="header">
+				<div id="rightheader">
+					<p></p>
+				</div>
+				<div id="topheader">
+					<h1 id="title">
+						<a href="#">选择题</a>
+					</h1>
+				</div>
+				<div id="navigation"></div>
+			</div>
+			<div id="content">
+				<p id="whereami"></p>
+				<h1>欢迎！</h1>
+				<form id="form-xz" action="${app }/mst_xzda.do" method="post">
+					<ul id="ul-xz">
+					</ul>
+					<p>
+						<span id="msg" style="color: red;font-size: 20px"></span>
+						<input id="btn-xz" type="button" class="button" value="提交试卷" />
+						<input type="button" class="button" value="返回选择题"
+						onclick="location='/web/exam_xz.html'" />
+					</p>
+				</form>
+			</div>
+		</div>
+		<div id="footer"></div>
+	</div>
+	<script type="text/javascript">
+	$(document).ready(function(){
+		$.ajax({
+			"url":"/examXZ/xz_num",
+			"type":"get",
+			"dataType":"json",
+			"success":function(json){
+				if(json.state==200){
+					for(var i=0;i<json.data.length;i++){
+						if(json.data[i].type1==1){
+							var li = $("<li id='li_qqq"+i+"'></li>");
+							var ul = $("<ul></ul>");
+							var lititle = $("<li>"+(i+1)+"."+json.data[i].title+"</li>");
+							var lia = $("<li></li>");
+							var lib = $("<li></li>");
+							var lic = $("<li></li>");
+							var lid = $("<li></li>");
+							var in1 = $("<input type='radio' name='"+i+"' value='a' >");
+							var in2 = $("<input type='radio' name='"+i+"' value='b' >");
+							var in3 = $("<input type='radio' name='"+i+"' value='c' >");
+							var in4 = $("<input type='radio' name='"+i+"' value='d' >");
+							lia.append(in1).append("a)"+json.data[i].a);
+							lib.append(in2).append("b)"+json.data[i].b);
+							lic.append(in3).append("c)"+json.data[i].c);
+							lid.append(in4).append("d)"+json.data[i].d);
+							ul.append(lititle);
+							ul.append(lia);
+							ul.append(lib);
+							ul.append(lic);
+							ul.append(lid);
+							li.append(ul);	
+							$("#ul-xz").append(li);
+						}else{
+							var li = $("<li id='li_qqq"+i+"'></li>");
+							var ul = $("<ul></ul>");
+							var lititle = $("<li>"+(i+1)+"."+json.data[i].title+"</li>");
+							var lia = $("<li></li>");
+							var lib = $("<li></li>");
+							var lic = $("<li></li>");
+							var lid = $("<li></li>");
+							var in1 = $("<input type='checkbox' name='"+i+"' value='a' >");
+							var in2 = $("<input type='checkbox' name='"+i+"' value='b' >");
+							var in3 = $("<input type='checkbox' name='"+i+"' value='c' >");
+							var in4 = $("<input type='checkbox' name='"+i+"' value='d' >");
+							lia.append(in1).append("a)"+json.data[i].a);
+							lib.append(in2).append("b)"+json.data[i].b);
+							lic.append(in3).append("c)"+json.data[i].c);
+							lid.append(in4).append("d)"+json.data[i].d);
+							ul.append(lititle);
+							ul.append(lia);
+							ul.append(lib);
+							ul.append(lic);
+							ul.append(lid);
+							li.append(ul);	
+							$("#ul-xz").append(li);
+						}
+					}
+				}
+			}
+		});
+	});
+	</script>
+	
+	<script type="text/javascript">
+	$("#btn-xz").click(function(){
+		if($("#li_qqq0").children("hr").length>0){
+			return;
+		}
+		$.ajax({
+			"url":"/examXZ/xz_result",
+			"data":$("#form-xz").serialize(),
+			"type":"post",
+			"dataType":"json",
+			"success":function(json){
+				if(json.state==200){
+					for(var i=0;i<json.data.list.length;i++){
+						var hr = $("<hr>");
+						var br = $("<br><br><br>");
+						var type;
+						if(json.data.result[i]==1){
+							type = "green";
+						}else{
+							type = "red";
+						}
+						var span = $("<span style='color: "+type+"'></span>");
+						span.text(json.data.list[i].answer);
+						$(("#li_qqq"+i)).append(hr);
+						$(("#li_qqq"+i)).append(span);
+						$(("#li_qqq"+i)).append(br);
+					}
+				}else{
+					$("#msg").html(json.message);
+				}
+			}
+		});
+	});
+	</script>
+</body>
+</html>
+

@@ -1,0 +1,95 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<title>选择题</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<script src="../jq/jquery-1.9.1.min.js"></script>
+<link rel="stylesheet" type="text/css" href="../css/style.css" />
+</head>
+
+<body>
+	<div id="wrap">
+		<div id="top_content">
+			<div id="header">
+				<div id="rightheader">
+					<p></p>
+				</div>
+				<div id="topheader">
+					<h1 id="title">
+						<a href="#">选择题</a>
+					</h1>
+				</div>
+				<div id="navigation"></div>
+			</div>
+			<div id="content">
+				<p id="whereami"></p>
+				<h1>选择题</h1>
+				<form id="form-exam-xz" action="${app }/mst_xzjd.do" method="post">
+					<table cellpadding="0" cellspacing="0" border="0"
+						class="form_table">
+						<tr>
+							<td valign="middle" align="right">请选则测试阶段</td>
+							<td valign="middle" align="left">
+								<select name="type">
+									<option value="0">全部</option>
+									<option value="1">语言基础</option>
+									<option value="2">面向对象</option>
+									<option value="3">核心API</option>
+									<option value="4">WEB</option>
+									<option value="5">数据库</option>
+									<option value="6">SERVLET和JSP</option>
+								</select>
+								</td>
+						</tr>
+						<tr>
+								<td valign="middle" align="right">
+									出题数量：
+								</td>
+								<td valign="middle" align="left">
+									<select name="num">
+									<option value="1">1道题</option>
+									<option value="3">3道题</option>
+									<option value="5">5道题</option>
+									<option value="10">10道题</option>
+									<option value="300">所有题</option>
+								</select>
+								</td>
+						</tr>
+					</table>
+					<p>
+						<input id="btn-exam-xz" type="button" class="button" value="开始测试" />
+					</p>
+					<p>
+						<input type="button" class="button" value="返回初始界面"
+						onclick="location='/index.html'" />
+					</p>
+					
+				</form>
+			</div>
+		</div>
+		<div id="footer">
+			<div id="footer_bg"></div>
+		</div>
+	</div>
+	<script type="text/javascript">
+	$("#btn-exam-xz").click(function(){
+		$.ajax({
+			//当前路径：/web/register.html
+			//目标路径：/users/reg
+			"url":"/examXZ/exam_xz",
+			"data":$("#form-exam-xz").serialize(),
+			"type":"post",
+			"dataType":"json",
+			"success":function(json){
+				if(json.state==200){
+					location.href="/web/xz.html";
+				}else{
+					//注册错误
+					alert(json.message);
+				}
+			}
+		});
+	});
+	</script>
+</body>
+</html>
